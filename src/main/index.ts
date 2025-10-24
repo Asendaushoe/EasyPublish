@@ -2472,8 +2472,8 @@ namespace Task {
       let content = '<p>\n'
       content += `<img src="${info.posterUrl}" alt="${info.posterUrl.replace(/^.*[\\\/]/, '')}" /><br />\n<br />\n`
       let note = ''
-      if (info.note)
-        info.note.forEach(item => { note += item + ' + ' })
+      // if (info.note)
+      //   info.note.forEach(item => { note += item + ' + ' })
       if (note != '')
         note = note.slice(0, -2)
       let reseed = info.reseed ? ` Reseed${info.rsVersion > 1 ? ` v${info.rsVersion}` : ''}` : ''

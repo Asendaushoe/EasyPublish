@@ -1,0 +1,43 @@
+name: termux构建测试
+
+on: 
+  workflow_dispatch: 
+
+jobs:
+    build:
+      name: 编译构建
+      runs-on: 	ubuntu-24.04-arm
+
+      steps:
+        - name: 克隆代码
+          uses: actions/checkout@v4
+          with:
+            ref: ${{ github.sha }}
+
+        - name: 安装Node环境
+          uses: actions/setup-node@v4
+          with:
+            node-version: "20"
+
+        - name: 安装依赖
+          run: npm ci
+
+        - name: 读取package.json
+          uses: rexdefuror/read-package-json@v1.0.5
+
+        - name: 下载预构建包
+          run: wget -O electron-v32.2.1-linux-aarch64.zip https://github.com/termux-user-repository/electron-tur-builder/releases/download/v32.2.1/electron-v32.2.1-linux-arm64.zip
+
+        - name: 下载预构建包
+          run: sudo apt-get install ruby-full
+
+        - name: 下载预构建包
+          run: sudo gem install fpm
+
+        - name: 打包构建
+          run: npm run build:linux
+
+        - name: Upload Artifacts
+          uses: actions/upload-artifact@v4
+          with:
+            path: ./dist/*.deb
