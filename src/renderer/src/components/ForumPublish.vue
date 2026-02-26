@@ -290,11 +290,11 @@
         const result: Message.Task.PublishStatus = JSON.parse(await window.BTAPI.getBTLinks(JSON.stringify(msg)))
         publishInfo.value = []
         publishInfo.value.push('萌番组：' + result.bangumi)
-        publishInfo.value.push('Nyaa：' + result.nyaa)
+        publishInfo.value.push('末日动漫：' + result.acgnx_a)
+        publishInfo.value.push('Acgnx：' + result.acgnx_g)
         publishInfo.value.push('Acgrip：' + result.acgrip)
         publishInfo.value.push('动漫花园：' + result.dmhy)
-        publishInfo.value.push('Acgnx：' + result.acgnx_g)
-        publishInfo.value.push('末日动漫：' + result.acgnx_a)
+        publishInfo.value.push('Nyaa：' + result.nyaa)
         loadingBT.value = false
         if (result.bangumi_all == 'true') {
             content.value = content.value.replace('链接加载中', generateLinks())

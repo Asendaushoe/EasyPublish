@@ -1428,6 +1428,8 @@ namespace BT {
         formData.append('sort_id', '31')
       else if (config.category_bangumi == '549ef207fe682f7549f1ea90')
         formData.append('sort_id', '2')
+      else if (config.category_bangumi == '549cc9369310bc7d04cddf9f')
+        formData.append('sort_id', '2')
       else formData.append('sort_id', '1')
       formData.append('team_id', team_id ? team_id[1] : '')
       formData.append('bt_data_title', config.title)
@@ -1575,12 +1577,12 @@ namespace BT {
         formData.append('mod', 'upload')
         const response = await axios.post('https://www.acgnx.se/user.php?o=api&op=upload', formData, { responseType: 'json' })
         if (response.data.code == 200) {
-          task.acgnx_a = 'https://www.acgnx.se/show-' + response.data.infohash +'.html'
+          task.acgnx_g = 'https://www.acgnx.se/show-' + response.data.infohash +'.html'
           await taskDB.write()
           return 'success'
         }
         else if (response.data.code == 302) {
-          task.acgnx_a = 'https://www.acgnx.se/show-' + response.data.infohash +'.html'
+          task.acgnx_g = 'https://www.acgnx.se/show-' + response.data.infohash +'.html'
           await taskDB.write()
           return 'exist'
         }
@@ -2034,7 +2036,7 @@ namespace BT {
   async function getAcgripTorrentList() {
     try {
       let response = await axios.get('https://acg.rip/cp/posts', { responseType: 'text' })
-      let torrents = (response.data as string).match(/<div\sclass="list-group-item">[\s\S]*?<\/div>/g)!
+      let torrents = (response.data as string).match(/<div\sclass="list-group-item-heading">[\s\S]*?<\/div>/g)!
       let result: {title: string, detail: Message.BT.TorrentDetail.AcgripDetail}[] = []
       torrents.forEach(item => {
         let [, id, title] = item.match(/<a\shref="\/t\/(\d+)">([\s\S]*?)<\/a>/)!
