@@ -152,7 +152,7 @@ function getCurrentTime() {
 }
 //转义实体字符
 function escapeHtml(str: string) {
-  return he.encode(str)
+  return he.escape(str)
 }
 function unescapeHtml(str: string) {
   return he.decode(str)
